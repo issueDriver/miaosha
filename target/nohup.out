@@ -1,0 +1,50 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.5.9.RELEASE)
+
+2019-10-11 21:41:40.333  INFO 7849 --- [           main] com.zuojie.MainApication                 : Starting MainApication v1.0-SNAPSHOT on yangjiedembp with PID 7849 (/Users/yangjie/Documents/github/miaosha/target/miaosha.jar started by yangjie in /Users/yangjie/Documents/github/miaosha/target)
+2019-10-11 21:41:40.336  INFO 7849 --- [           main] com.zuojie.MainApication                 : No active profile set, falling back to default profiles: default
+2019-10-11 21:41:40.813  INFO 7849 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5a2e4553: startup date [Fri Oct 11 21:41:40 CST 2019]; root of context hierarchy
+2019-10-11 21:41:42.913  INFO 7849 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2019-10-11 21:41:42.927  INFO 7849 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-11 21:41:42.930  INFO 7849 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2019-10-11 21:41:43.037  INFO 7849 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-11 21:41:43.037  INFO 7849 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2227 ms
+2019-10-11 21:41:43.212  INFO 7849 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2019-10-11 21:41:43.218  INFO 7849 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-10-11 21:41:43.219  INFO 7849 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-10-11 21:41:43.219  INFO 7849 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-10-11 21:41:43.219  INFO 7849 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-10-11 21:41:44.148  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5a2e4553: startup date [Fri Oct 11 21:41:40 CST 2019]; root of context hierarchy
+2019-10-11 21:41:44.234  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/demo/db/get]}" onto public com.zuojie.result.Result<com.zuojie.domain.User> com.zuojie.controller.SampleController.dbGet()
+2019-10-11 21:41:44.235  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/demo/redis/set]}" onto public com.zuojie.result.Result<java.lang.Boolean> com.zuojie.controller.SampleController.redisSet()
+2019-10-11 21:41:44.235  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/demo/redis/get]}" onto public com.zuojie.result.Result<com.zuojie.domain.User> com.zuojie.controller.SampleController.redisGet()
+2019-10-11 21:41:44.235  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/demo/db/tx]}" onto public com.zuojie.result.Result<java.lang.Boolean> com.zuojie.controller.SampleController.dbTx()
+2019-10-11 21:41:44.236  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/demo/thymeleaf]}" onto public java.lang.String com.zuojie.controller.SampleController.thymeleaf(org.springframework.ui.Model)
+2019-10-11 21:41:44.236  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/goods/to_list]}" onto public java.lang.String com.zuojie.controller.GoodsController.list(org.springframework.ui.Model,com.zuojie.domain.MiaoshaUser)
+2019-10-11 21:41:44.237  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/goods/to_detail/{goodsId}]}" onto public java.lang.String com.zuojie.controller.GoodsController.detail(org.springframework.ui.Model,com.zuojie.domain.MiaoshaUser,long)
+2019-10-11 21:41:44.238  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/login/toLogin]}" onto public java.lang.String com.zuojie.controller.LoginController.toLogin()
+2019-10-11 21:41:44.238  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/login/do_login]}" onto public com.zuojie.result.Result<java.lang.Boolean> com.zuojie.controller.LoginController.doLogin(javax.servlet.http.HttpServletResponse,com.zuojie.vo.LoginVo)
+2019-10-11 21:41:44.239  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user/info]}" onto public com.zuojie.result.Result<com.zuojie.domain.MiaoshaUser> com.zuojie.controller.UserController.info(org.springframework.ui.Model,com.zuojie.domain.MiaoshaUser)
+2019-10-11 21:41:44.239  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/miaosha/do_miaosha]}" onto public java.lang.String com.zuojie.controller.MiaoshaController.list(org.springframework.ui.Model,com.zuojie.domain.MiaoshaUser,long)
+2019-10-11 21:41:44.241  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-10-11 21:41:44.242  INFO 7849 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-10-11 21:41:44.273  INFO 7849 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-10-11 21:41:44.273  INFO 7849 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-10-11 21:41:44.298  INFO 7849 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : Detected @ExceptionHandler methods in globalExceptionHandler
+2019-10-11 21:41:44.323  INFO 7849 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-10-11 21:41:44.965  INFO 7849 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2019-10-11 21:41:44.967  INFO 7849 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2019-10-11 21:41:44.972  INFO 7849 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2019-10-11 21:41:45.048  INFO 7849 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2019-10-11 21:41:45.053  INFO 7849 --- [           main] com.zuojie.MainApication                 : Started MainApication in 9.208 seconds (JVM running for 9.934)
+2019-10-11 21:43:27.131  INFO 7849 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2019-10-11 21:43:27.131  INFO 7849 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2019-10-11 21:43:27.162  INFO 7849 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 31 ms
+2019-10-11 21:43:40.371  INFO 7849 --- [nio-8080-exec-5] com.zuojie.controller.LoginController    : LoginVo [mobile=13000000000, password=d3b1294a61a07da9b49b6e22b2cbd7f9]
+2019-10-11 21:43:40.472  INFO 7849 --- [nio-8080-exec-5] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
