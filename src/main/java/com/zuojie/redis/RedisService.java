@@ -1,30 +1,38 @@
 package com.zuojie.redis;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zuojie.domain.MiaoshaUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.ScanParams;
+import redis.clients.jedis.ScanResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @zuthor:zuojie
  */
 @Service
 public class RedisService {
+
     @Autowired
     JedisPool jedisPool;
 
     /**
      * 获取当个对象
      * */
-    public <T> T get(MiaoshaUserKey prefix, String key, Class<MiaoshaUser> clazz) {
+    public <T> T get(KeyPrefix prefix, String key,  Class<T> clazz) {
         Jedis jedis = null;
         try {
             jedis =  jedisPool.getResource();
             //生成真正的key
             String realKey  = prefix.getPrefix() + key;
             String  str = jedis.get(realKey);
-            T t = (T) stringToBean(str, clazz);
+            T t =  stringToBean(str, clazz);
             return t;
         }finally {
             returnToPool(jedis);
@@ -34,7 +42,7 @@ public class RedisService {
     /**
      * 设置对象
      * */
-    public <T> boolean set(MiaoshaUserKey prefix, String key, MiaoshaUser value) {
+    public <T> boolean set(KeyPrefix prefix, String key,  T value) {
         Jedis jedis = null;
         try {
             jedis =  jedisPool.getResource();
@@ -72,6 +80,22 @@ public class RedisService {
     }
 
     /**
+     * 删除
+     * */
+    public boolean delete(KeyPrefix prefix, String key) {
+        Jedis jedis = null;
+        try {
+            jedis =  jedisPool.getResource();
+            //生成真正的key
+            String realKey  = prefix.getPrefix() + key;
+            long ret =  jedis.del(realKey);
+            return ret > 0;
+        }finally {
+            returnToPool(jedis);
+        }
+    }
+
+    /**
      * 增加值
      * */
     public <T> Long incr(KeyPrefix prefix, String key) {
@@ -101,7 +125,56 @@ public class RedisService {
         }
     }
 
-    private <T> String beanToString(T value) {
+    public boolean delete(KeyPrefix prefix) {
+        if(prefix == null) {
+            return false;
+        }
+        List<String> keys = scanKeys(prefix.getPrefix());
+        if(keys==null || keys.size() <= 0) {
+            return true;
+        }
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            jedis.del(keys.toArray(new String[0]));
+            return true;
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if(jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public List<String> scanKeys(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            List<String> keys = new ArrayList<String>();
+            String cursor = "0";
+            ScanParams sp = new ScanParams();
+            sp.match("*"+key+"*");
+            sp.count(100);
+            do{
+                ScanResult<String> ret = jedis.scan(cursor, sp);
+                List<String> result = ret.getResult();
+                if(result!=null && result.size() > 0){
+                    keys.addAll(result);
+                }
+                //再处理cursor
+                cursor = ret.getStringCursor();
+            }while(!cursor.equals("0"));
+            return keys;
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public static <T> String beanToString(T value) {
         if(value == null) {
             return null;
         }
@@ -118,7 +191,7 @@ public class RedisService {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T stringToBean(String str, Class<T> clazz) {
+    public static <T> T stringToBean(String str, Class<T> clazz) {
         if(str == null || str.length() <= 0 || clazz == null) {
             return null;
         }
@@ -129,6 +202,8 @@ public class RedisService {
         }else if(clazz == long.class || clazz == Long.class) {
             return  (T)Long.valueOf(str);
         }else {
+            JSONObject jsonObject = JSON.parseObject(str);
+            System.out.println("UUUUUU:"+jsonObject);
             return JSON.toJavaObject(JSON.parseObject(str), clazz);
         }
     }
@@ -138,5 +213,4 @@ public class RedisService {
             jedis.close();
         }
     }
-
 }

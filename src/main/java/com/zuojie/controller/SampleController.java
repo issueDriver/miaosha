@@ -1,6 +1,7 @@
 package com.zuojie.controller;
 
 import com.zuojie.domain.User;
+import com.zuojie.rabbitmq.MQSender;
 import com.zuojie.redis.RedisService;
 import com.zuojie.redis.UserKey;
 import com.zuojie.result.Result;
@@ -24,11 +25,42 @@ public class SampleController {
 
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    MQSender mqSender;
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model){
         model.addAttribute("name","zuojie");
         return "hello";
     }
+   /* @RequestMapping("/mq")
+    @ResponseBody
+    public Result<String> mq(){
+        mqSender.send("hello,xiaopang");
+        return Result.success("hello ,Word");
+
+    }*/
+    /*@RequestMapping("/mq/fanout")
+    @ResponseBody
+    public Result<String> fanout(){
+        mqSender.sendFanout("hello,xiaogao");
+        return Result.success("hello ,Word");
+
+    }
+    @RequestMapping("/mq/topic")
+    @ResponseBody
+    public Result<String> topic(){
+        mqSender.sendTopic("hello,xiaofan");
+        return Result.success("hello ,Word");
+
+    }
+    @RequestMapping("/mq/headers")
+    @ResponseBody
+    public Result<String> headers(){
+        mqSender.sendHeaders("hello,xiaowang");
+        return Result.success("hello ,Word");
+
+    }*/
 
     @RequestMapping("/db/get")
     @ResponseBody
@@ -47,9 +79,9 @@ public class SampleController {
     @RequestMapping("/redis/get")
     @ResponseBody
     public Result<User> redisGet() {
-      //  User  user  = redisService.get(UserKey.getById, ""+1, User.class);
-       // return Result.success(user);
-        return null;
+       User  user  = redisService.get(UserKey.getById, ""+1, User.class);
+        return Result.success(user);
+
 
     }
 
@@ -59,10 +91,11 @@ public class SampleController {
         User user  = new User();
         user.setId(1);
         user.setName("1111");
-       // redisService.set(UserKey.getById, ""+1, user);//UserKey:id1
-      //  redisService.set(UserKey.getById, ""+1, user);
-       // return Result.success(true);
-        return null;
+        //UserKey:id1
+        redisService.set(UserKey.getById, ""+1, user);
+        redisService.set(UserKey.getById, ""+1, user);
+        return Result.success(true);
+
     }
 
 
